@@ -1,0 +1,54 @@
+- name: Instalando o Docker
+  shell: curl -fsSL https://get.docker.com | bash
+  notify: Restart Docker 
+
+- name: Ajustando para driver adequado ao Docker 
+  copy:
+    dest: "/etc/docker/daemon.json"
+    content: |
+      {
+        "exec-opts": ["native.cgroupdriver=systemd"]
+      }
+
+- name: Permissao Docker Sem Sudo
+  shell: usermod -aG docker $USER
+
+- name: Reinicializando daemon
+  systemd: 
+    daemon_reload: yes  
+
+- name: Instalando Docker-Compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: 'u+x,g+x' 
+
+- name: Instalando Ansible
+  apt:
+    name: ansible
+
+- name: Instalando Nodejs
+  apt:
+    name: nodejs
+
+- name: Instalando Npm
+  apt:
+    name: npm
+
+- name: Instalando python3-pip
+  apt:
+    name: python3-pip
+
+- name: Instalando Unzip
+  apt:
+    name: unzip
+
+- name: Download e Unzip AWX
+  unarchive:
+    src: https://github.com/ansible/awx/archive/17.1.0.zip
+    dest: /home/ubuntu/
+    remote_src: yes
+
+- name: Instalando Pwgen
+  apt:
+    name: unzip

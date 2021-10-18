@@ -1,0 +1,5 @@
+---
+# vars file for install-monit-tools
+url_repo_prometheus: https://prometheus-community.github.io/helm-charts
+url_repo_stable: https://charts.helm.sh/stable
+deploy_prometheus: "prometheus prometheus-community/kube-prometheus-stack"

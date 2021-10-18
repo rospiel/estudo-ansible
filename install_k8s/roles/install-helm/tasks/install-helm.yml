@@ -1,0 +1,8 @@
+- name: Download Helm 3
+  get_url:
+    url: "{{ url_helm  }}"
+    dest: /tmp/get-helm-3
+    mode: 0755
+
+- name: Instalacao Helm 3
+  command: bash /tmp/get-helm-3       

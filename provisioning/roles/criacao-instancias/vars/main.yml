@@ -1,0 +1,12 @@
+---
+# vars file for criacao-instancias
+security_name: estudo_ansible
+# NOME DO USUARIO CRIADO NO IAM DA AWS
+profile: terraform
+instance_type: t2.medium
+image: ami-09e67e426f25ce0d7
+region: us-east-1
+keypair: /media/rodrigo/TOSHIBA EXT/Projetos/ansible_k8s/key/ansible_key.pub
+key_name: ansible_key
+count: 3
+

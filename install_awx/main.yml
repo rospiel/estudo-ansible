@@ -1,0 +1,9 @@
+- hosts: awx
+  become: yes 
+  user: ubuntu
+  gather_facts: no
+  pre_tasks:
+  - name: 'Atualizando o repo'
+    raw: 'apt-get update'
+  roles:
+  - { role: instalacao-awx, tags: ["instalacao_awx_role"] }

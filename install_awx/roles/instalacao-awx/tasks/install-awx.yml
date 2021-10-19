@@ -1,6 +1,30 @@
+- name: Configurando Repositorio
+  apt:
+    pkg:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
+
+- name: Add Docker Oficial GPG Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg   
+    state: present
+
+- name: Obtendo vensao atual do SO
+  shell: lsb_release -cs
+  register: ubuntu_version    
+
+- name: Add Repositorio Docker
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
+    state: present
+
 - name: Instalando o Docker
-  shell: curl -fsSL https://get.docker.com | bash
-  notify: Restart Docker 
+  apt:
+    name: docker-ce
+    update_cache: true
 
 - name: Ajustando para driver adequado ao Docker 
   copy:
@@ -9,9 +33,6 @@
       {
         "exec-opts": ["native.cgroupdriver=systemd"]
       }
-
-- name: Permissao Docker Sem Sudo
-  shell: usermod -aG docker $USER
 
 - name: Reinicializando daemon
   systemd: 
@@ -51,4 +72,19 @@
 
 - name: Instalando Pwgen
   apt:
-    name: unzip
+    name: pwgen
+
+- name: Equalizando versao docker-compose
+  pip:
+    name: docker-compose==1.28.5    
+
+- name: Criacao Docker Grupo
+  group:
+    name: "docker"
+    state: present
+
+- name: Adicionando {{ user_remote_server }} ao grupo do docker
+  user:
+    name: "{{ user_remote_server }}"
+    groups: "docker"
+    append: "yes"    

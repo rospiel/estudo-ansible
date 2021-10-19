@@ -4,6 +4,8 @@
   gather_facts: no
   pre_tasks:
   - name: 'Atualizando o repo'
-    raw: 'apt-get update'
+    apt:
+      update_cache: "yes"
+      force_apt_get: "yes"
   roles:
   - { role: instalacao-awx, tags: ["instalacao_awx_role"] }

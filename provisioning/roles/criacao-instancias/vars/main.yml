@@ -8,5 +8,5 @@ image: ami-09e67e426f25ce0d7
 region: us-east-1
 keypair: /media/rodrigo/TOSHIBA EXT/Projetos/ansible_k8s/key/ansible_key.pub
 key_name: ansible_key
-count: 3
+count: 1 #3
 

@@ -1,2 +1,2 @@
 [awx]
-23.22.130.105 ansible_user=ubuntu ansible_connection=ssh ansible_private_key_file=~/Documentos/key/ansible_key
+0.0.0.0 ansible_user=ubuntu ansible_connection=ssh ansible_private_key_file=~/Documentos/key/ansible_key
